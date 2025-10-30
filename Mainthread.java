@@ -1,10 +1,12 @@
+import java.util.Scanner;
 
 public class Mainthread
 {
 	public static void main(String[] args) {
 		try{
+			Scanner sc = new Scanner(System.in);
 
-			String[] info = new String[5];
+			String[] info = new String[15];
         	Posicion pos = new Posicion();
 
 			HiloEscribe h1 = new HiloEscribe(pos);
@@ -16,26 +18,63 @@ public class Mainthread
 			System.out.println("\n\nIniciando hilo...");
         	h1.start();
 
-        	Thread.sleep(900);
+        	String opcion;
+            boolean salir = false;
 
-        	System.out.println("Pausa de hilo...");
-        	h1.pausar();
+            while (!salir) {
+                System.out.println("\n=== CONTROL DE HILO ===");
+                System.out.println("1. Pausar hilo");
+                System.out.println("2. Continuar hilo");
+                System.out.println("3. Terminar hilo");
+                System.out.println("4. Mostrar arreglo");
+                System.out.println("5. Mostrar estado del hilo");
+                System.out.println("6. Salir");
+                System.out.print("\nElige una opción: ");
 
-        	Thread.sleep(2000);
+                opcion = sc.nextLine();
 
-        	System.out.println("Continuando hilo...");
-        	h1.reanudar();
-        	Thread.sleep(900);
+                switch (opcion) {
+                	case "1":
+                        System.out.println("Pausando hilo...");
+                        h1.pausar();
+                        break;
 
-        	h1.join();
+                    case "2":
+                        System.out.println("Continuando hilo...");
+                        h1.reanudar();
+                        break;
 
-        	System.out.println("\n Arreglo:");
-        	for (int i = 0; i < info.length; i++) {
-        		System.out.println(info[i]);
-        	}
+                    case "3":
+                        System.out.println("Terminando hilo...");
+                        h1.interrupt(); 
+                        h1.join();
+                        System.out.println("Hilo terminado.");
+                        break;
 
-        	System.out.println("\nEstado del hilo: " + h1.getState());
+                    case "4":
+                        System.out.println("\nContenido del arreglo:");
+                        for (int i = 0; i < info.length; i++) {
+                            System.out.println(i + ": " + info[i]);
+                        }
+                        break;
 
+                    case "5":
+                        System.out.println("\nEstado del hilo:");
+                        System.out.println("Estado: " + h1.getState());
+                        break;
+
+                    case "6":
+                        System.out.println("Saliendo del programa...");
+                        salir = true;
+                        break;
+
+                    default:
+                        System.out.println("Opción no válida.");
+
+                }
+                Thread.sleep(400);
+            }
+            sc.close();
     	} catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Indice fuera de rango.");
         } catch (InterruptedException e) {

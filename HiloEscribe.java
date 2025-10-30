@@ -25,7 +25,7 @@ public class HiloEscribe extends Thread {
 
     @Override
     public void run() {
-        for (int i = ini; i < ini + 5; i++) {
+        for (int i = ini; i < ini + 15; i++) {
             try {
 
                 synchronized (this) {
