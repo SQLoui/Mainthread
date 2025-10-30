@@ -7,7 +7,5 @@ public class Posicion {
 
     public void incrementa() {
         this.p++;
-    }
-    
-    
+    }   
 }
