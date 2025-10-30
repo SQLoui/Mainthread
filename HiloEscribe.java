@@ -35,7 +35,9 @@ public class HiloEscribe extends Thread {
                 }
 
                 synchronized (p) {
-                    info[p.getP()] = getName() + " " + i + "-" + p.getP();
+                    //info[p.getP()] = getName() + " " + i + "-" + p.getP();
+                    info[p.getP()] = getName() + ": " + i;
+                    System.out.println(" " + getName() + " : " + i);
                     p.incrementa();
                 }
 
